@@ -14,7 +14,13 @@ function normalize(string) {
   return string.replace(/[ -/]/g, '_');
 }
 
-const stories = require.context('../../stories', true, /\.stories\.js$/);
+// Remove the GeoSearch stories from the tests
+// beacuse they are too much brittle
+const stories = require.context(
+  '../../stories',
+  true,
+  /^((?!GeoSearch).)*\.stories\.js$/
+);
 
 // loadStories
 stories.keys().forEach(filename => stories(filename));
